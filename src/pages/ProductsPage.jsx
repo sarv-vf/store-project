@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ImSearch } from "react-icons/im";
-
+import { FaListUl } from "react-icons/fa";
 
 import Card from "../components/Card";
 import Loader from "../components/Loader";
@@ -15,6 +15,13 @@ function ProductsPage() {
 
   const searchHandler = () => {
     console.log("search");
+  };
+
+  const categoryHandler = (event) => {
+    const { tagName } = event.target;
+    const category = event.target.innerText.toLowerCase()
+
+    if (tagName !== "LI") return;
   };
 
   return (
@@ -32,14 +39,23 @@ function ProductsPage() {
       </div>
       <div className={styles.container}>
         <div className={styles.products}>
-          {!products.length && <Loader />}
+          {!products.length && <div className={styles.loader}><Loader /></div>}
           {products.map((p) => (
             <Card key={p.id} data={p} />
           ))}
         </div>
-
         <div>
-          <div></div>
+          <div>
+            <FaListUl />
+            <p>Categories</p>
+          </div>
+          <ul onClick={categoryHandler}>
+            <li>All</li>
+            <li>Electronics</li>
+            <li>Jewelry</li>
+            <li>Men's Clothing</li>
+            <li>Woman's Clothing</li>
+          </ul>
         </div>
       </div>
     </>
