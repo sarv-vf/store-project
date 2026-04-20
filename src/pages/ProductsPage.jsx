@@ -19,7 +19,9 @@ function ProductsPage() {
     setDisplayed(products);
   }, [products]);
 
-  useEffect(() => {console.log(query)}, [query]);
+  useEffect(() => {
+    
+  }, [query]);
 
   const searchHandler = () => {
     setQuery((query) => ({ ...query, search }));
