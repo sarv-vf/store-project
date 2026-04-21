@@ -1,8 +1,15 @@
 import { Children, createContext, useContext, useReducer } from "react";
 
-const initialState = {};
+const initialState = {
+  selectedItems: [],
+  itemsCounter: 0,
+  total: 0,
+  checkout: false,
+};
 
-const reducer = (state, action) => {};
+const reducer = (state, action) => {
+    
+};
 
 const CartContext = createContext();
 
