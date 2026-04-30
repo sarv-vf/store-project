@@ -20,7 +20,7 @@ function BasketSidebar({ state, clickHandler }) {
       <div>
         <BsPatchCheck />
         <p>Status:</p>
-        <span>{!state.checkout && "Done"}</span>
+        <span>{!state.checkout && "Pending..."}</span>
       </div>
       <button onClick={() => clickHandler("CHECKOUT")}>Checkout</button>
     </div>

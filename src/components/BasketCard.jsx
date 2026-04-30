@@ -13,7 +13,7 @@ function BasketCard({ data, clickHandler }) {
       <div className={styles.actions} >
         {quantity === 1 && (
           <button onClick={() => clickHandler("REMOVE_ITEM", data)}>
-            <MdDeleteOut />
+            <MdDeleteOutline />
           </button>
         )}
         {quantity > 1 && (
