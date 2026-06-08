@@ -10,43 +10,70 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "ADD_ITEM":
-      if (!state.selectedItems.find((item) => item.id === action.payload.id)) {
-        state.selectedItems.push({ ...action.payload, quantity: 1 });
+    case "ADD_ITEM": {
+      const existing = state.selectedItems.find(
+        (item) => item.id === action.payload.id,
+      );
+
+      if (existing) {
+        return reducer(state, { type: "INCREASE", payload: action.payload });
       }
+
+      const newSelectedItems = [
+        ...state.selectedItems,
+        { ...action.payload, quantity: 1 },
+      ];
+
       return {
         ...state,
-        ...sumProducts(state.selectedItems),
+        selectedItems: newSelectedItems,
+        ...sumProducts(newSelectedItems),
         checkout: false,
       };
-    case "REMOVE_ITEM":
+    }
+
+    case "INCREASE": {
+      const newSelectedItems = state.selectedItems.map((item) =>
+        item.id === action.payload.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item,
+      );
+
+      return {
+        ...state,
+        selectedItems: newSelectedItems,
+        ...sumProducts(newSelectedItems),
+      };
+    }
+
+    case "DECREASE": {
+      const newSelectedItems = state.selectedItems
+        .map((item) =>
+          item.id === action.payload.id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item,
+        )
+        .filter((item) => item.quantity > 0);
+
+      return {
+        ...state,
+        selectedItems: newSelectedItems,
+        ...sumProducts(newSelectedItems),
+      };
+    }
+
+    case "REMOVE_ITEM": {
       const newSelectedItems = state.selectedItems.filter(
         (item) => item.id !== action.payload.id,
       );
       return {
         ...state,
-        selectedItems: [...newSelectedItems],
+        selectedItems: newSelectedItems,
         ...sumProducts(newSelectedItems),
-        // checkout: false,
+        checkout: false,
       };
-    case "INCREASE":
-      const increaseIndex = state.selectedItems.findIndex(
-        (item) => item.id === action.payload.id,
-      );
-      state.selectedItems[increaseIndex].quantity++;
-      return {
-        ...state,
-        ...sumProducts(state.selectedItems),
-      };
-    case "DECREASE":
-      const decreaseIndex = state.selectedItems.findIndex(
-        (item) => item.id === action.payload.id,
-      );
-      state.selectedItems[decreaseIndex].quantity--;
-      return {
-        ...state,
-        ...sumProducts(state.selectedItems),
-      };
+    }
+
     case "CHECKOUT":
       return {
         selectedItems: [],
