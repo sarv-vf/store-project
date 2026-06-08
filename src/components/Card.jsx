@@ -15,14 +15,14 @@ function Card({ data }) {
 
   const quantity = productQuantity(state, id);
 
-  const clickHandler = () => {
+  const clickHandler = (type) => {
     dispatch({ type, payload: data });
   };
 
   return (
     <div className={styles.card}>
       <img src={image} alt={title} />
-      <h3>{shortenText}</h3>
+      <h3>{shortenText(title)}</h3>
       <p>{price} $</p>
       <div className={styles.actions}>
         <Link to={`/products/${id}`}>
@@ -39,7 +39,7 @@ function Card({ data }) {
           )}
           {!!quantity && <span>{quantity}</span>}
           {quantity === 0 ? (
-            <button onClick={() => clickHandler("ADD-ITEM")}>
+            <button onClick={() => clickHandler("ADD_ITEM")}>
               <TbShoppingBagCheck />
             </button>
           ) : (
