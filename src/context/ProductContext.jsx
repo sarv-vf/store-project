@@ -13,9 +13,8 @@ function ProductsProvider({ children }) {
       } catch (error) {
         console.log(error.message);
       }
-
-      fetchProducts();
     };
+    fetchProducts();
   }, []);
 
   return (
