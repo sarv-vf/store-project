@@ -6,7 +6,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import Loader from "../components/Loader";
 import { useProductDetails } from "../context/ProductContext";
 
-import styles from "./DetailsPage.module.css"
+import styles from "./DetailsPage.module.css";
 
 function DetailsPage() {
   const { id } = useParams();
